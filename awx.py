@@ -1,13 +1,15 @@
 import requests
 import time
+from requests.auth import HTTPBasicAuth
 
 class AWXClient:
     def __init__(self, awx_url, awx_token):
         self.awx_url = awx_url.rstrip('/')
         print(f"AWX URL: {self.awx_url}")
         print(f"AWX Token: {awx_token}")
+        self.basic = HTTPBasicAuth('peet', awx_token)
         self.headers = {
-            "Authorization": f"Bearer {awx_token}",
+            # "Authorization": f"Bearer {awx_token}",
             "Content-Type": "application/json"
         }
 
@@ -16,7 +18,7 @@ class AWXClient:
         url = f"{self.awx_url}/api/v2/job_templates/{template_id}/launch/"
         payload = {"extra_vars": extra_vars} if extra_vars else {}
         
-        response = requests.post(url, headers=self.headers, json=payload)
+        response = requests.post(url, headers=self.headers, json=payload,auth=self.basic)
         response.raise_for_status()
         return response.json()["id"]
 
