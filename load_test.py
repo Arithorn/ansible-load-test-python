@@ -20,6 +20,7 @@ def main():
     workspace_name = "iac-ansible-load-testing-WL"
     awx_url = os.getenv("AWX_URL")
     awx_token = os.getenv("AWX_TOKEN")
+    awx_template_id = 9
 
     if not all([token, organization, workspace_name,awx_url,awx_token]):
         raise ValueError("Missing required environment variables")
@@ -60,7 +61,7 @@ def main():
             if success:
                 print("\nLaunching AWX job template...")
                 extra_vars = json.loads(args.awx_extra_vars) if args.awx_extra_vars else None
-                job_id = awx_client.launch_job_template(args.awx_template_id, extra_vars)
+                job_id = awx_client.launch_job_template(awx_template_id, extra_vars)
                 print(f"AWX Job launched with ID: {job_id}")
 
                 # Wait for AWX job to complete
