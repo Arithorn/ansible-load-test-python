@@ -4,6 +4,8 @@ import time
 class AWXClient:
     def __init__(self, awx_url, awx_token):
         self.awx_url = awx_url.rstrip('/')
+        print(f"AWX URL: {self.awx_url}")
+        print(f"AWX Token: {awx_token}")
         self.headers = {
             "Authorization": f"Bearer {awx_token}",
             "Content-Type": "application/json"
