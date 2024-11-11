@@ -60,7 +60,8 @@ def main():
             print(f"Run completed with status: {final_status}")
             if success:
                 print("\nLaunching AWX job template...")
-                extra_vars = json.loads(args.awx_extra_vars) if args.awx_extra_vars else None
+                # extra_vars = json.loads(args.awx_extra_vars) if args.awx_extra_vars else None
+                extra_vars = None
                 job_id = awx_client.launch_job_template(awx_template_id, extra_vars)
                 print(f"AWX Job launched with ID: {job_id}")
 
