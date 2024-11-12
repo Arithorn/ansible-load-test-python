@@ -24,7 +24,7 @@ class AWXClient:
 
     def get_job_status(self, job_id):
         """Get the current status of a job"""
-        url = f"{self.awx_url}/api/v2/jobs/{job_id}/"
+        url = f"{self.awx_url}/api/v2/workflow_jobs/{job_id}/"
         response = requests.get(url, headers=self.headers,auth=self.basic)
         response.raise_for_status()
         return response.json()
