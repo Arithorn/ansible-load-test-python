@@ -80,6 +80,8 @@ def main():
                 raise Exception(f"Run failed with status: {final_status}")
             print("Destroy any resources created by the run...")
             destroy_run_id = tf_client.create_destroy_run(workspace_id)
+            success, final_status = tf_client.wait_for_run(destroy_run_id, timeout=800)
+            print(f"Destroy run completed with status: {final_status}")            
 
     except requests.exceptions.RequestException as e:
         print(f"API request failed: {e}")
